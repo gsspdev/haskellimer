@@ -1,4 +1,4 @@
-# Revision history for haskell-lib-exec
+# Revision history for haskellimer
 
 ## 0.1.0.0 -- YYYY-mm-dd
 

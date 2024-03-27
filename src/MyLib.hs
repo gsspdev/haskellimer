@@ -1,28 +1,24 @@
-module MyLib (someFunc, addTwoPlusTwo, createZeroArray, promptForNumberAndCreateArray, promptForSequence) where
+module MyLib (createZeroArray, promptForSequence, enumerateCharSequence, enumerateCharSequenceTests) where
 import System.IO (hFlush, stdout)
+import Data.Maybe (fromJust)
 
 createZeroArray :: Int -> IO [Int]
 createZeroArray n = return (replicate n 0)
--- Example: zeroArray5 = createZeroArray 5
--- Creates: zeroArray5 == [0, 0, 0, 0, 0]
+-- Ex: zeroArray5 = createZeroArray 5
+-- Rs: zeroArray5 == [0, 0, 0, 0, 0]
 
--- | Prompts the user for a number and then creates an array of that length filled with zeros.
-promptForNumberAndCreateArray :: IO [Int]
-promptForNumberAndCreateArray = do
-    putStr "Please enter a number: "
-    hFlush stdout -- Ensure the prompt is displayed before input is collected
-    input <- getLine
-    let number = read input :: Int -- Convert the input to an Int
-    createZeroArray number
-
--- Example usage in main or another IO function:
--- main = do
---   zeroArray <- promptForNumberAndCreateArray
---   print zeroArray
-
-promptForSequence ::IO [String]
+promptForSequence :: IO [Char]
 promptForSequence = do
     putStr "Please enter a sequence of letters separated by spaces: "
     hFlush stdout
     input <- getLine
-    return $ words input
+    return $ concat $ words input
+
+enumerateCharSequence :: [Char] -> [Int]
+enumerateCharSequence = map (fromJust . flip lookup mapping)
+    where mapping = [('a', 0), ('c', 1), ('g', 2), ('t', 3)]
+    
+enumerateCharSequenceTests :: IO ()
+enumerateCharSequenceTests = do
+    print $ enumerateCharSequence ['a', 'c', 'g', 't'] == [0, 1, 2, 3]
+    print $ enumerateCharSequence [] == []
