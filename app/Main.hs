@@ -1,3 +1,5 @@
+-- app Directory: Contains the source files for executables. If your project generates an executable, its main module goes here
+
 module Main where
 import qualified MyLib (createZeroArray, promptForSequence, enumerateCharSequence, enumerateCharSequenceTests)
 
